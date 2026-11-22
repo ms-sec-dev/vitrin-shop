@@ -235,6 +235,7 @@ out of the repository, so no secrets or local state are published.
 
 ## 🔐 Production Notes
 
+- Step-by-step server setup (VPS + Docker + nginx + HTTPS, or PaaS): see [DEPLOY.md](DEPLOY.md).
 - Set `DEBUG=0`, a strong `SECRET_KEY`, and explicit `ALLOWED_HOSTS`.
 - Put the app behind a TLS-terminating reverse proxy (nginx / Caddy) and add its origin to
   `CSRF_TRUSTED_ORIGINS`.

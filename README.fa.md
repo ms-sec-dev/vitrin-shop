@@ -237,6 +237,7 @@ gh repo create vitrin-shop --public --source=. --remote=origin --push
 
 ## 🔐 نکات پروداکشن
 
+- راهنمای گام‌به‌گام استقرار روی سرور (VPS + Docker + nginx + HTTPS یا PaaS): [DEPLOY.fa.md](DEPLOY.fa.md)
 - `DEBUG=0`، یک `SECRET_KEY` قوی و `ALLOWED_HOSTS` مشخص تنظیم کنید.
 - اپ را پشت یک پروکسی معکوس با TLS (nginx / Caddy) قرار دهید و origin آن را به
   `CSRF_TRUSTED_ORIGINS` اضافه کنید.
