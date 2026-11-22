@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}درباره نمونه‌کار | ویترین{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="مسیر صفحه">
+      <a href="{% url 'store:home' %}">خانه</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">درباره نمونه‌کار</span>
+    </nav>
+    <div class="page-head__row">
+      <div>
+        <span class="eyebrow eyebrow--plain">درباره پروژه</span>
+        <h1>ویترین؛ یک فروشگاه فارسی کامل</h1>
+        <p class="page-head__sub">نمونه‌کاری برای نمایش توانایی در طراحی رابط کاربری، توسعه بک‌اند و استقرار پروژه با داکر.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--flush-top">
+  <div class="container about-grid">
+    <div class="about-copy">
+      <h2>چه چیزی در این پروژه پیاده شده؟</h2>
+      <p>
+        ویترین یک فروشگاه اینترنتی نمونه است که از صفر با جنگو ساخته شده؛ بدون وابستگی به
+        سرویس‌های خارجی و با تصاویر و فونت لوکال، بنابراین آفلاین هم کامل کار می‌کند.
+        رابط کاربری راست‌به‌چپ، واکنش‌گرا و با جزئیات ریز طراحی شده تا تجربه‌ای نزدیک به
+        یک فروشگاه واقعی ارائه دهد.
+      </p>
+      <div class="feature-grid">
+        <div class="feature"><strong>جستجو و فیلتر</strong><p>جستجو در نام، برند و توضیحات، فیلتر دسته‌بندی و مرتب‌سازی قیمت و امتیاز.</p></div>
+        <div class="feature"><strong>سبد خرید AJAX</strong><p>افزودن، تغییر تعداد و حذف بدون بارگذاری صفحه با به‌روزرسانی زنده مبالغ.</p></div>
+        <div class="feature"><strong>سفارش واقعی در دیتابیس</strong><p>فرم معتبرسنجی‌شده، ثبت سفارش، کد پیگیری و نمایش در پنل ادمین.</p></div>
+        <div class="feature"><strong>اعداد و تاریخ فارسی</strong><p>نمایش قیمت‌ها با ارقام فارسی و تاریخ شمسی برای سفارش‌ها.</p></div>
+        <div class="feature"><strong>واکنش‌گرا و RTL</strong><p>طراحی موبایل‌فرست با منوی کشویی، نوار پایین موبایل و گرید تطبیقی.</p></div>
+        <div class="feature"><strong>آماده استقرار</strong><p>Dockerfile و docker-compose، Gunicorn و WhiteNoise برای اجرای ساده روی هر سیستم.</p></div>
+      </div>
+    </div>
+
+    <aside class="about-side">
+      <div class="about-card">
+        <h3>پشته فناوری</h3>
+        <div class="tech-chips">
+          <span>Python 3</span><span>Django</span><span>SQLite</span>
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+          <span>Gunicorn</span><span>Docker</span>
+        </div>
+      </div>
+      <div class="about-card">
+        <h3>اجرای سریع با داکر</h3>
+        <pre class="code-block"><code>docker compose up --build</code></pre>
+        <p>سپس آدرس <span dir="ltr">http://localhost:8000</span> را باز کنید.</p>
+      </div>
+      <div class="about-card">
+        <h3>اجرای لوکال</h3>
+        <pre class="code-block"><code>python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed
+python manage.py runserver</code></pre>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <div>
+        <span class="eyebrow eyebrow--plain">ساختار پروژه</span>
+        <h2>کد تمیز و قابل توسعه</h2>
+        <p class="section-head__sub">مدل‌ها، ویوها، فرم‌ها و قالب‌ها در جای خود قرار دارند تا افزودن امکانات بعدی ساده باشد.</p>
+      </div>
+    </div>
+    <div class="structure">
+      <div><code>config/</code><span>تنظیمات، URLها و WSGI</span></div>
+      <div><code>store/</code><span>مدل‌ها، ویوها، فرم‌ها، سبد خرید و ادمین</span></div>
+      <div><code>templates/</code><span>قالب‌های RTL و کامپوننت‌های قابل استفاده مجدد</span></div>
+      <div><code>static/</code><span>CSS، JavaScript، فونت و تصاویر SVG</span></div>
+      <div><code>Dockerfile</code><span>ساخت ایمیج سبک و امن برای اجرا</span></div>
+      <div><code>docker-compose.yml</code><span>اجرای یک‌دستوری با والیوم دیتابیس</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>آماده نمایش در نمونه‌کار شما</h2>
+        <p>پروژه با فایل‌های README، لایسنس و .gitignore کامل است و می‌توانید آن را مستقیم روی گیت‌هاب منتشر کنید.</p>
+      </div>
+      <a class="btn btn--primary" href="{% url 'store:product_list' %}">دیدن فروشگاه</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

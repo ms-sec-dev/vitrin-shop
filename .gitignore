@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
+data/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Tooling / OS
+.idea/
+.vscode/
+.claude/
+node_modules/
+package.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.npmrc
+.yarnrc
+.yarnrc.yml
+bunfig.toml
+.gitmodules
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

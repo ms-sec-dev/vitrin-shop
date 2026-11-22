@@ -1,0 +1,37 @@
+{% load static persian %}
+<article class="product-card reveal">
+  <a class="product-card__media" href="{{ product.get_absolute_url }}" aria-label="{{ product.name }}">
+    <img src="{% static product.image %}" alt="{{ product.name }}" width="800" height="800" loading="lazy">
+    <span class="badges">
+      {% if product.discount_percent %}
+        <span class="badge badge--sale">٪{{ product.discount_percent|fa }} تخفیف</span>
+      {% endif %}
+      {% if product.is_new %}<span class="badge badge--new">جدید</span>{% endif %}
+      {% if not product.in_stock %}<span class="badge badge--muted">ناموجود</span>{% endif %}
+    </span>
+  </a>
+  <div class="product-card__body">
+    <span class="product-card__brand">{{ product.brand|default:product.category.name }}</span>
+    <h3 class="product-card__title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+    <div class="rating">
+      <span class="rating__stars" aria-hidden="true">{{ product.rating|stars }}</span>
+      <span class="rating__value">{{ product.rating|fa }}</span>
+    </div>
+    <div class="product-card__footer">
+      <div class="price">
+        {% if product.old_price %}<del>{{ product.old_price|money }}</del>{% endif %}
+        <strong>{{ product.price|money }} <small>تومان</small></strong>
+      </div>
+      <form action="{% url 'store:cart_add' %}" method="post" data-add-to-cart>
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.pk }}">
+        <input type="hidden" name="quantity" value="1">
+        <button class="btn btn--icon" type="submit" aria-label="افزودن {{ product.name }} به سبد خرید" {% if not product.in_stock %}disabled{% endif %}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</article>

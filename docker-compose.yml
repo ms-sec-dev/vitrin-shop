@@ -1,0 +1,36 @@
+services:
+  web:
+    build: .
+    image: vitrin-shop:latest
+    container_name: vitrin-shop
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "0"
+      SECRET_KEY: "${SECRET_KEY:-change-me-in-production-please}"
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS:-*}"
+      CSRF_TRUSTED_ORIGINS: "${CSRF_TRUSTED_ORIGINS:-http://localhost:8000,http://127.0.0.1:8000}"
+      SQLITE_PATH: /app/data/db.sqlite3
+      SEED_DEMO_DATA: "1"
+      DEMO_ADMIN_USERNAME: "${DEMO_ADMIN_USERNAME:-admin}"
+      DEMO_ADMIN_PASSWORD: "${DEMO_ADMIN_PASSWORD:-admin1234}"
+      SHIPPING_PRICE: "49000"
+      FREE_SHIPPING_THRESHOLD: "3000000"
+    volumes:
+      - vitrin_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/').read()",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  vitrin_data:

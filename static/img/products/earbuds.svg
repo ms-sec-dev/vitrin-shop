@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="ایرباد بی‌سیم">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eeecfb"/>
+      <stop offset="1" stop-color="#d8d3f4"/>
+    </linearGradient>
+    <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e3dff6"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#3b2f6b" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="160" cy="180" r="100" fill="#ffffff" opacity="0.4"/>
+  <circle cx="660" cy="620" r="130" fill="#ffffff" opacity="0.3"/>
+  <g filter="url(#shadow)">
+    <g transform="rotate(-18 330 330)">
+      <ellipse cx="330" cy="300" rx="70" ry="62" fill="#2b2547"/>
+      <rect x="312" y="330" width="36" height="128" rx="18" fill="#2b2547"/>
+      <circle cx="330" cy="300" r="26" fill="#4a4173"/>
+      <circle cx="330" cy="300" r="10" fill="#8f86c9"/>
+    </g>
+    <g transform="rotate(18 480 330)">
+      <ellipse cx="480" cy="300" rx="70" ry="62" fill="#2b2547"/>
+      <rect x="462" y="330" width="36" height="128" rx="18" fill="#2b2547"/>
+      <circle cx="480" cy="300" r="26" fill="#4a4173"/>
+      <circle cx="480" cy="300" r="10" fill="#8f86c9"/>
+    </g>
+    <rect x="282" y="470" width="236" height="168" rx="68" fill="url(#case)"/>
+    <path d="M282 540h236" stroke="#cfc8ec" stroke-width="6"/>
+    <circle cx="400" cy="600" r="10" fill="#8f86c9"/>
+  </g>
+  <rect x="330" y="690" width="140" height="8" rx="4" fill="#8f86c9" opacity="0.35"/>
+</svg>

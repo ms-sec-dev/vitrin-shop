@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static persian %}
+
+{% block title %}{{ product.name }} | ویترین{% endblock %}
+{% block meta_description %}{{ product.description|truncatechars:150 }}{% endblock %}
+
+{% block content %}
+<section class="page-head page-head--compact">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="مسیر صفحه">
+      <a href="{% url 'store:home' %}">خانه</a>
+      <span aria-hidden="true">/</span>
+      <a href="{% url 'store:product_list' %}">محصولات</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{{ product.name }}</span>
+    </nav>
+  </div>
+</section>
+
+<section class="section section--flush-top">
+  <div class="container detail">
+    <div class="detail__media">
+      <div class="detail__image">
+        {% if product.discount_percent %}
+          <span class="badge badge--sale detail__badge">٪{{ product.discount_percent|fa }} تخفیف</span>
+        {% endif %}
+        <img src="{% static product.image %}" alt="{{ product.name }}" width="800" height="800">
+      </div>
+      <div class="detail__perks">
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
+          ارسال سریع
+        </div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          ۱۸ ماه ضمانت
+        </div>
+        <div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2v-6h4M4 12v5a2 2 0 0 0 2 2h2v-6H4"/></svg>
+          پشتیبانی ۷ روزه
+        </div>
+      </div>
+    </div>
+
+    <div class="detail__info">
+      <div class="detail__topline">
+        <span class="product-card__brand">{{ product.brand }}</span>
+        {% if product.is_new %}<span class="badge badge--new">جدید</span>{% endif %}
+      </div>
+      <h1>{{ product.name }}</h1>
+      <div class="detail__meta">
+        <span class="rating">
+          <span class="rating__stars" aria-hidden="true">{{ product.rating|stars }}</span>
+          <span class="rating__value">{{ product.rating|fa }} از ۵</span>
+        </span>
+        <span class="dot" aria-hidden="true"></span>
+        <a href="{{ product.category.get_absolute_url }}">{{ product.category.name }}</a>
+        <span class="dot" aria-hidden="true"></span>
+        {% if product.in_stock %}
+          <span class="stock stock--in">موجود در انبار ({{ product.stock|fa }} عدد)</span>
+        {% else %}
+          <span class="stock stock--out">ناموجود</span>
+        {% endif %}
+      </div>
+
+      <p class="detail__desc">{{ product.description }}</p>
+
+      <div class="detail__price-box">
+        <div class="detail__price">
+          {% if product.old_price %}<del>{{ product.old_price|money }} تومان</del>{% endif %}
+          <strong>{{ product.price|money }} <small>تومان</small></strong>
+        </div>
+        {% if product.discount_percent %}
+          <span class="badge badge--sale">٪{{ product.discount_percent|fa }} تخفیف</span>
+        {% endif %}
+      </div>
+
+      <form class="buy-form" action="{% url 'store:cart_add' %}" method="post" data-add-to-cart>
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.pk }}">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <div class="stepper" data-stepper>
+          <button type="button" data-step="-1" aria-label="کاهش تعداد">−</button>
+          <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" inputmode="numeric" aria-label="تعداد" data-stepper-input>
+          <button type="button" data-step="1" aria-label="افزایش تعداد">+</button>
+        </div>
+        <button class="btn btn--primary btn--lg buy-form__submit" type="submit" {% if not product.in_stock %}disabled{% endif %}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1.2 11a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          {% if product.in_stock %}افزودن به سبد خرید{% else %}ناموجود{% endif %}
+        </button>
+      </form>
+
+      <div class="detail__blocks">
+        <div class="detail__block">
+          <h2>مشخصات محصول</h2>
+          <ul class="spec-list">
+            {% for spec in product.spec_list %}
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg>
+                {{ spec }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if related_products %}
+<section class="section section--tint">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow eyebrow--plain">شاید بپسندید</span>
+        <h2>محصولات مشابه</h2>
+      </div>
+      <a class="link-arrow" href="{{ product.category.get_absolute_url }}">همه {{ product.category.name }}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      </a>
+    </div>
+    <div class="product-grid product-grid--four">
+      {% for related in related_products %}
+        {% include "store/partials/product_card.html" with product=related %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

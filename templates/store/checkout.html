@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static persian %}
+
+{% block title %}تکمیل سفارش | ویترین{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="مسیر صفحه">
+      <a href="{% url 'store:home' %}">خانه</a>
+      <span aria-hidden="true">/</span>
+      <a href="{% url 'store:cart_detail' %}">سبد خرید</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">تکمیل سفارش</span>
+    </nav>
+    <div class="page-head__row">
+      <div>
+        <h1>تکمیل سفارش</h1>
+        <p class="page-head__sub">اطلاعات گیرنده را وارد کنید؛ سفارش شما ثبت و کد پیگیری صادر می‌شود.</p>
+      </div>
+      <ol class="steps" aria-label="مراحل خرید">
+        <li class="is-done">سبد خرید</li>
+        <li class="is-active">اطلاعات گیرنده</li>
+        <li>تأیید سفارش</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--flush-top">
+  <div class="container checkout-layout">
+    <form class="checkout-form" method="post" data-checkout-form>
+      {% csrf_token %}
+      <div class="checkout-form__head">
+        <h2>اطلاعات گیرنده</h2>
+        <span>همه فیلدهای ستاره‌دار الزامی هستند.</span>
+      </div>
+
+      {% if form.non_field_errors %}
+        <div class="form-errors">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      <div class="form-grid">
+        <div class="form-field {% if form.full_name.errors %}has-error{% endif %}">
+          <label for="{{ form.full_name.id_for_label }}">{{ form.full_name.label }} <span>*</span></label>
+          {{ form.full_name }}
+          {% for error in form.full_name.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field {% if form.phone.errors %}has-error{% endif %}">
+          <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }} <span>*</span></label>
+          {{ form.phone }}
+          {% for error in form.phone.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field {% if form.email.errors %}has-error{% endif %}">
+          <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          {{ form.email }}
+          {% for error in form.email.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field {% if form.city.errors %}has-error{% endif %}">
+          <label for="{{ form.city.id_for_label }}">{{ form.city.label }} <span>*</span></label>
+          {{ form.city }}
+          {% for error in form.city.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field {% if form.postal_code.errors %}has-error{% endif %}">
+          <label for="{{ form.postal_code.id_for_label }}">{{ form.postal_code.label }}</label>
+          {{ form.postal_code }}
+          {% for error in form.postal_code.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field form-field--full {% if form.address.errors %}has-error{% endif %}">
+          <label for="{{ form.address.id_for_label }}">{{ form.address.label }} <span>*</span></label>
+          {{ form.address }}
+          {% for error in form.address.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+        <div class="form-field form-field--full {% if form.note.errors %}has-error{% endif %}">
+          <label for="{{ form.note.id_for_label }}">{{ form.note.label }}</label>
+          {{ form.note }}
+          {% for error in form.note.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+        </div>
+      </div>
+
+      <div class="checkout-form__actions">
+        <button class="btn btn--primary btn--lg" type="submit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          ثبت نهایی سفارش
+        </button>
+        <a class="btn btn--ghost" href="{% url 'store:cart_detail' %}">بازگشت به سبد</a>
+      </div>
+      <p class="checkout-form__note">با ثبت سفارش، نمونه‌کار بودن این فروشگاه را می‌پذیرید؛ هیچ پرداخت واقعی انجام نمی‌شود.</p>
+    </form>
+
+    <aside class="summary summary--checkout">
+      <h2>سفارش شما</h2>
+      <ul class="mini-cart">
+        {% for item in cart %}
+          <li>
+            <span class="mini-cart__media"><img src="{% static item.product.image %}" alt="" width="800" height="800" loading="lazy"></span>
+            <div class="mini-cart__info">
+              <strong>{{ item.product.name }}</strong>
+              <small>{{ item.quantity|fa }} × {{ item.product.price|money }} تومان</small>
+            </div>
+            <span class="mini-cart__total">{{ item.subtotal|money }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="summary__rows">
+        <div><span>جمع کالاها</span><strong>{{ cart.total|money }} تومان</strong></div>
+        <div><span>هزینه ارسال</span><strong>{% if cart.shipping %}{{ cart.shipping|money }} تومان{% else %}رایگان{% endif %}</strong></div>
+        <div class="summary__total"><span>مبلغ قابل پرداخت</span><strong>{{ cart.payable|money }} تومان</strong></div>
+      </div>
+      <p class="summary__note">این یک فروشگاه نمونه است و پرداخت واقعی انجام نمی‌شود.</p>
+    </aside>
+  </div>
+</section>
+{% endblock %}

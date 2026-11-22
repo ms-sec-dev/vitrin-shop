@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="کیف پول چرمی">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7eee5"/>
+      <stop offset="1" stop-color="#e8d5c3"/>
+    </linearGradient>
+    <linearGradient id="leather" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a5a3b"/>
+      <stop offset="1" stop-color="#5f3a24"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#5f3a24" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="640" cy="180" r="100" fill="#ffffff" opacity="0.4"/>
+  <circle cx="160" cy="640" r="100" fill="#ffffff" opacity="0.3"/>
+  <g filter="url(#shadow)">
+    <rect x="200" y="280" width="400" height="270" rx="44" fill="url(#leather)"/>
+    <path d="M200 360h400" stroke="#4a2b19" stroke-width="8" opacity="0.7"/>
+    <path d="M200 420h400" stroke="#4a2b19" stroke-width="8" opacity="0.5"/>
+    <path d="M200 480h400" stroke="#4a2b19" stroke-width="8" opacity="0.35"/>
+    <path d="M200 330c0-28 22-50 50-50h300c28 0 50 22 50 50v30H200z" fill="#a06a45"/>
+    <circle cx="530" cy="470" r="26" fill="#d99a3d"/>
+    <circle cx="530" cy="470" r="10" fill="#8a5a3b"/>
+    <rect x="236" y="392" width="150" height="18" rx="9" fill="#c69a76" opacity="0.7"/>
+    <rect x="236" y="452" width="110" height="18" rx="9" fill="#c69a76" opacity="0.5"/>
+  </g>
+</svg>

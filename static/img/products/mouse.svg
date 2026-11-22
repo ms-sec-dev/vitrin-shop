@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="ماوس ارگونومیک">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eceff2"/>
+      <stop offset="1" stop-color="#d3d9e0"/>
+    </linearGradient>
+    <linearGradient id="mouse" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3a424c"/>
+      <stop offset="1" stop-color="#1d232a"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#1d232a" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="640" cy="190" r="100" fill="#ffffff" opacity="0.45"/>
+  <circle cx="160" cy="640" r="95" fill="#ffffff" opacity="0.3"/>
+  <g filter="url(#shadow)">
+    <path d="M400 190c86 0 140 76 140 190v80c0 76-62 130-140 130s-140-54-140-130v-80c0-114 54-190 140-190z" fill="url(#mouse)"/>
+    <path d="M400 196v150" stroke="#0f1318" stroke-width="7"/>
+    <rect x="384" y="286" width="32" height="76" rx="16" fill="#d99a3d"/>
+    <path d="M400 196c-46 0-78 30-94 78h94z" fill="#4a5561"/>
+    <path d="M400 196c46 0 78 30 94 78h-94z" fill="#4a5561"/>
+    <circle cx="400" cy="500" r="34" fill="#2b333c"/>
+    <circle cx="400" cy="500" r="12" fill="#d99a3d" opacity="0.7"/>
+  </g>
+</svg>

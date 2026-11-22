@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% load static persian %}
+
+{% block title %}ویترین | فروشگاه اینترنتی نمونه با جنگو{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <span class="eyebrow"><span class="eyebrow__dot"></span> نمونه‌کار فروشگاه فارسی</span>
+      <h1>خرید ساده،<br><span class="highlight">تجربه‌ای دلنشین</span></h1>
+      <p class="hero__lead">
+        ویترین یک فروشگاه اینترنتی کامل است؛ از جستجو و فیلتر محصولات تا سبد خرید
+        و ثبت سفارش. طراحی راست‌به‌چپ، سریع و آماده اجرا با داکر.
+      </p>
+      <form class="hero__search" action="{% url 'store:product_list' %}" method="get" role="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21" stroke-linecap="round"/>
+        </svg>
+        <input type="search" name="q" placeholder="دنبال چه محصولی هستید؟" aria-label="جستجو در محصولات">
+        <button class="btn btn--primary" type="submit">جستجو</button>
+      </form>
+      <div class="hero__stats">
+        <div><strong>{{ product_count|fa }}+</strong><span>محصول متنوع</span></div>
+        <div><strong>{{ 4|fa }}</strong><span>دسته‌بندی اصلی</span></div>
+        <div><strong>۷ روز</strong><span>ضمانت بازگشت</span></div>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <img src="{% static 'img/hero.svg' %}" alt="سبد خرید و بسته‌بندی هدیه" width="900" height="760">
+      <div class="hero__float hero__float--one">
+        <span class="hero__float-icon">✦</span>
+        <div><strong>ارسال سریع</strong><small>تهران و شهرستان</small></div>
+      </div>
+      <div class="hero__float hero__float--two">
+        <span class="hero__float-icon hero__float-icon--amber">٪</span>
+        <div><strong>تخفیف تا ۳۰٪</strong><small>روی محصولات منتخب</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-strip">
+  <div class="container trust-strip__grid">
+    <div class="trust-item">
+      <span class="trust-item__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></svg>
+      </span>
+      <div><strong>ارسال رایگان</strong><small>برای خرید بالای {{ FREE_SHIPPING_THRESHOLD|money }} تومان</small></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-item__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      </span>
+      <div><strong>ضمانت اصالت</strong><small>کالای اورجینال با گارانتی</small></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-item__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M7 15h4"/></svg>
+      </span>
+      <div><strong>پرداخت امن</strong><small>درگاه پرداخت معتبر</small></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-item__icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-2v-6h4M4 12v5a2 2 0 0 0 2 2h2v-6H4"/></svg>
+      </span>
+      <div><strong>پشتیبانی واقعی</strong><small>همه‌روزه ۹ تا ۲۱</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow eyebrow--plain">دسته‌بندی‌ها</span>
+        <h2>از کجا شروع کنیم؟</h2>
+      </div>
+      <a class="link-arrow" href="{% url 'store:product_list' %}">مشاهده همه محصولات
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      </a>
+    </div>
+    <div class="category-grid">
+      {% for category in categories %}
+        <a class="category-card reveal" href="{{ category.get_absolute_url }}">
+          <span class="category-card__icon">{% include "store/partials/category_icon.html" with icon=category.icon %}</span>
+          <strong>{{ category.name }}</strong>
+          <p>{{ category.description }}</p>
+          <span class="category-card__meta">{{ category.products.count|fa }} محصول
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow eyebrow--plain">پیشنهاد ویترین</span>
+        <h2>محصولات ویژه</h2>
+      </div>
+      <a class="link-arrow" href="{% url 'store:product_list' %}?sort=popular">محبوب‌ترین‌ها
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      </a>
+    </div>
+    <div class="product-grid">
+      {% for product in featured_products %}
+        {% include "store/partials/product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="promo">
+      <div class="promo__content">
+        <span class="eyebrow eyebrow--light">تخفیف پایان فصل</span>
+        <h2>تا ۳۰٪ تخفیف روی<br>محصولات منتخب</h2>
+        <p>فرصت را از دست ندهید؛ موجودی این محصولات محدود است و قیمت‌ها فقط تا پایان هفته معتبرند.</p>
+        <a class="btn btn--light" href="{% url 'store:product_list' %}?sort=cheapest">
+          دیدن تخفیف‌ها
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+        </a>
+      </div>
+      <div class="promo__art" aria-hidden="true">
+        <span class="promo__ring"></span>
+        <span class="promo__badge">٪۳۰</span>
+        <span class="promo__blob"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow eyebrow--plain">تازه رسیده‌ها</span>
+        <h2>جدیدترین محصولات</h2>
+      </div>
+      <a class="link-arrow" href="{% url 'store:product_list' %}?sort=newest">همه محصولات جدید
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>
+      </a>
+    </div>
+    <div class="product-grid product-grid--four">
+      {% for product in new_products %}
+        {% include "store/partials/product_card.html" with product=product %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <div>
+        <span class="eyebrow eyebrow--plain">تجربه مشتریان</span>
+        <h2>آن‌ها چه می‌گویند؟</h2>
+      </div>
+    </div>
+    <div class="testimonial-grid">
+      <figure class="testimonial reveal">
+        <div class="testimonial__stars" aria-label="امتیاز ۵ از ۵">★★★★★</div>
+        <blockquote>سفارش‌دادن خیلی راحت بود و بسته‌بندی مرتب و تمیز به دستم رسید. کیفیت هدفون هم عالی است.</blockquote>
+        <figcaption><span class="avatar">س‌م</span><div><strong>سارا محمدی</strong><small>تهران</small></div></figcaption>
+      </figure>
+      <figure class="testimonial reveal">
+        <div class="testimonial__stars" aria-label="امتیاز ۵ از ۵">★★★★★</div>
+        <blockquote>ساعت هوشمند نوا دقیقاً همان چیزی بود که می‌خواستم؛ باتری‌اش واقعاً یک هفته دوام می‌آورد.</blockquote>
+        <figcaption><span class="avatar avatar--amber">ا‌ر</span><div><strong>امیر رضایی</strong><small>اصفهان</small></div></figcaption>
+      </figure>
+      <figure class="testimonial reveal">
+        <div class="testimonial__stars" aria-label="امتیاز ۴ از ۵">★★★★☆</div>
+        <blockquote>پشتیبانی سریع جواب داد و راهنمایی کرد کدام مدل برای کار روزمره مناسب‌تر است. تجربه خوبی بود.</blockquote>
+        <figcaption><span class="avatar avatar--violet">ن‌ک</span><div><strong>نگار کریمی</strong><small>شیراز</small></div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="cta-band">
+      <div>
+        <h2>این نمونه‌کار را دوست داشتید؟</h2>
+        <p>کد کامل پروژه روی گیت‌هاب قابل انتشار است و با یک دستور داکر روی هر سیستمی بالا می‌آید.</p>
+      </div>
+      <a class="btn btn--primary" href="{% url 'store:about' %}">درباره پروژه و نحوه اجرا</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
